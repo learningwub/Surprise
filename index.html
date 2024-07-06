@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Bruv</title>
+    <style>
+        *{
+            margin: 0;
+            overflow: hidden;
+        }
+        #happyBirthday{
+            z-index: 1;
+        }
+        img{
+            width: 100vw;
+            height: 100vh;
+        }
+        video{
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+        h1 {
+            position: absolute;
+            top: 40%;
+
+            /* margin: 0 auto; */
+
+            font-size: 128px;
+        }
+        #jumpscare {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <section id="happyBirthday">
+        <img src="person.jpg" alt="">
+        <h1>HAPPY BIRTHDAY</h1>
+    </section>
+        
+        <video id="jumpscare0" src="jumpscare0.mp4"></video>
+        <video id="jumpscare1" src="jumpscare1.mp4"></video>
+        <video id="jumpscare2" src="jumpscare2.mp4"></video>
+        <video id="jumpscare3" src="jumpscare3.mp4"></video>
+        <video id="jumpscare4" src="jumpscare4.mp4"></video>
+        <video id="jumpscare5" src="jumpscare5.mp4"></video>
+        <video id="jumpscare6" src="jumpscare6.mp4"></video>
+        <video id="jumpscare7" src="jumpscare7.mp4"></video>
+        <video id="jumpscare8" src="jumpscare8.mp4"></video>
+        <video id="jumpscare9" src="jumpscare9.mp4"></video>
+        <video id="jumpscare10" src="jumpscare10.mp4"></video>
+        <video id="jumpscare11" src="jumpscare11.mp4"></video>
+        <video id="jumpscare12" src="jumpscare12.mp4"></video>
+        
+    <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // const random = Math.round(Math.random() * 10);
+        const random = getRandomInt(0, 13);
+        console.log(`jumpscare${random}`);
+
+        const video = document.getElementById(`jumpscare${random}`);
+        const card = document.getElementById("happyBirthday");
+        
+        // var video = document.getElementById("video_background");
+        video.addEventListener('ended',function() {
+            video.style.display = "none";
+            card.style.display = "block";
+        });
+
+        video.addEventListener("canplay", function() {
+            setTimeout(function() {
+                video.play();
+                video.style.display = "block";
+                video.style.zIndex = 1;
+                card.style.display = "none";
+            }, 5000);
+        });
+        
+    </script>
+</body>
+</html>
