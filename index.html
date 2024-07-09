@@ -14,6 +14,11 @@
             height: 100vh;
             z-index: 1;
         }
+        #button{
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
         #happyBirthday{
             z-index: 1;
             display: none;
@@ -46,6 +51,9 @@
     <section id="loading">
         <img src="loading.gif" alt="">
     </section>
+    <section id="button">
+        <button onclick="mainCode()">Enter</button>
+    </section>
 
     <section id="happyBirthday">
         <img src="person.jpg" alt="">
@@ -70,14 +78,17 @@
     <script>
         //Wait to load
         const loading = document.getElementById("loading");
-        const card = document.getElementById("happyBirthday");
+        const button = document.getElementById("button");
         window.addEventListener('load', function () {
+            console.log("Loaded");
             loading.style.display = "none";
-            card.style.display = "block";
-            mainCode();
+            button.style.display = "block";
         });
-
+        
         function mainCode() {
+            button.style.display = "none";
+            const card = document.getElementById("happyBirthday");
+            card.style.display = "block";
             
             //Generating a Random number
             function getRandomInt(min, max) {
