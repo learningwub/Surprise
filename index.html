@@ -9,8 +9,17 @@
             margin: 0;
             overflow: hidden;
         }
+        #loading{
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
         #happyBirthday{
             z-index: 1;
+            display: none;
+        }
+        video{
+            display: none;
         }
         img{
             width: 100vw;
@@ -31,17 +40,18 @@
 
             font-size: 128px;
         }
-        #jumpscare {
-            display: none;
-        }
     </style>
 </head>
 <body>
+    <section id="loading">
+        <img src="loading.gif" alt="">
+    </section>
+
     <section id="happyBirthday">
         <img src="person.jpg" alt="">
         <h1>HAPPY BIRTHDAY</h1>
     </section>
-        
+
         <video id="jumpscare0" src="jumpscare0.mp4"></video>
         <video id="jumpscare1" src="jumpscare1.mp4"></video>
         <video id="jumpscare2" src="jumpscare2.mp4"></video>
@@ -58,29 +68,28 @@
         <audio id="song" src="songaudio.m4a" autoplay></audio>
         
     <script>
+        //Wait to load
+        const loading = document.getElementById("loading");
         window.addEventListener('load', function () {
-        alert("It's loaded!")
+            loading.style.display = "none";
+            card.style.display = "block";
         });
+
+        //Generating a Random number
         function getRandomInt(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
-
-        // const random = Math.round(Math.random() * 10);
         const random = getRandomInt(0, 13);
-        console.log(`jumpscare${random}`);
+        // const random = Math.round(Math.random() * 10);
 
+        //getting elements
         const video = document.getElementById(`jumpscare${random}`);
         const card = document.getElementById("happyBirthday");
         const song = document.getElementById("song");
-        
-        // var video = document.getElementById("video_background");
-        video.addEventListener('ended',function() {
-            video.style.display = "none";
-            card.style.display = "block";
-        });
 
+        //playing the video
         video.addEventListener("canplay", function() {
             setTimeout(function() {
                 song.pause();
@@ -90,6 +99,14 @@
                 card.style.display = "none";
             }, 10000);
         });
+
+        //After the video ends
+        video.addEventListener('ended',function() {
+            video.style.display = "none";
+            card.style.display = "block";
+        });
+
+
         
     </script>
 </body>
