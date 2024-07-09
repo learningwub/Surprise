@@ -70,44 +70,46 @@
     <script>
         //Wait to load
         const loading = document.getElementById("loading");
+        const card = document.getElementById("happyBirthday");
         window.addEventListener('load', function () {
             loading.style.display = "none";
             card.style.display = "block";
+            mainCode();
         });
 
-        //Generating a Random number
-        function getRandomInt(min, max) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        function mainCode() {
+            
+            //Generating a Random number
+            function getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            const random = getRandomInt(0, 13);
+            // const random = Math.round(Math.random() * 10);
+            
+            //getting elements
+            const video = document.getElementById(`jumpscare${random}`);
+            const song = document.getElementById("song");
+            
+            //playing the video
+            video.addEventListener("canplay", function() {
+                setTimeout(function() {
+                    song.pause();
+                    video.play();
+                    video.style.display = "block";
+                    video.style.zIndex = 1;
+                    card.style.display = "none";
+                }, 10000);
+            });
+            
+            //After the video ends
+            video.addEventListener('ended',function() {
+                video.style.display = "none";
+                card.style.display = "block";
+            });
+            
         }
-        const random = getRandomInt(0, 13);
-        // const random = Math.round(Math.random() * 10);
-
-        //getting elements
-        const video = document.getElementById(`jumpscare${random}`);
-        const card = document.getElementById("happyBirthday");
-        const song = document.getElementById("song");
-
-        //playing the video
-        video.addEventListener("canplay", function() {
-            setTimeout(function() {
-                song.pause();
-                video.play();
-                video.style.display = "block";
-                video.style.zIndex = 1;
-                card.style.display = "none";
-            }, 10000);
-        });
-
-        //After the video ends
-        video.addEventListener('ended',function() {
-            video.style.display = "none";
-            card.style.display = "block";
-        });
-
-
-        
     </script>
 </body>
 </html>
