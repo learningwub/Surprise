@@ -58,6 +58,9 @@
         <audio id="song" src="songaudio.m4a" autoplay></audio>
         
     <script>
+        window.addEventListener('load', function () {
+        alert("It's loaded!")
+        });
         function getRandomInt(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
