@@ -65,7 +65,7 @@
         <video id="jumpscare10" src="jumpscare10.mp4"></video>
         <video id="jumpscare11" src="jumpscare11.mp4"></video>
         <video id="jumpscare12" src="jumpscare12.mp4"></video>
-        <audio id="song" src="songaudio.m4a" autoPlay></audio>
+        <audio id="song" src="songaudio.m4a"></audio>
         
     <script>
         //Wait to load
@@ -86,11 +86,11 @@
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             const random = getRandomInt(0, 13);
-            // const random = Math.round(Math.random() * 10);
             
             //getting elements
             const video = document.getElementById(`jumpscare${random}`);
             const song = document.getElementById("song");
+            song.play();
             
             //playing the video
             video.addEventListener("canplay", function() {
