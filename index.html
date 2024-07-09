@@ -55,6 +55,7 @@
         <video id="jumpscare10" src="jumpscare10.mp4"></video>
         <video id="jumpscare11" src="jumpscare11.mp4"></video>
         <video id="jumpscare12" src="jumpscare12.mp4"></video>
+        <audio id="song" src="songaudio.m4a" autoplay></audio>
         
     <script>
         function getRandomInt(min, max) {
@@ -69,6 +70,7 @@
 
         const video = document.getElementById(`jumpscare${random}`);
         const card = document.getElementById("happyBirthday");
+        const song = document.getElementById("song");
         
         // var video = document.getElementById("video_background");
         video.addEventListener('ended',function() {
@@ -78,11 +80,12 @@
 
         video.addEventListener("canplay", function() {
             setTimeout(function() {
+                song.pause();
                 video.play();
                 video.style.display = "block";
                 video.style.zIndex = 1;
                 card.style.display = "none";
-            }, 5000);
+            }, 10000);
         });
         
     </script>
