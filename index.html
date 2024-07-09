@@ -14,10 +14,12 @@
             height: 100vh;
             z-index: 1;
         }
-        #button{
+        #button,button {
+            font-size: 64px;
             width: 100vw;
             height: 100vh;
             z-index: 1;
+            cursor: pointer;
         }
         #happyBirthday{
             z-index: 1;
@@ -89,6 +91,8 @@
             button.style.display = "none";
             const card = document.getElementById("happyBirthday");
             card.style.display = "block";
+            const song = document.getElementById("song");
+            song.play();
             
             //Generating a Random number
             function getRandomInt(min, max) {
@@ -97,22 +101,31 @@
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
             const random = getRandomInt(0, 13);
-            
             //getting elements
             const video = document.getElementById(`jumpscare${random}`);
-            const song = document.getElementById("song");
-            song.play();
             
             //playing the video
-            video.addEventListener("canplay", function() {
-                setTimeout(function() {
-                    song.pause();
-                    video.play();
-                    video.style.display = "block";
-                    video.style.zIndex = 1;
-                    card.style.display = "none";
-                }, 10000);
-            });
+            setTimeout(function() {
+                console.log("Playing");
+                song.pause();
+                video.play();
+                video.style.display = "block";
+                video.style.zIndex = 1;
+                card.style.display = "none";
+            }, 10000);
+            
+            // video.addEventListener("canplay", function() {
+            //     console.log("Can play");
+
+            //     setTimeout(function() {
+            //         console.log("Playing");
+            //         song.pause();
+            //         video.play();
+            //         video.style.display = "block";
+            //         video.style.zIndex = 1;
+            //         card.style.display = "none";
+            //     }, 10000);
+            // });
             
             //After the video ends
             video.addEventListener('ended',function() {
