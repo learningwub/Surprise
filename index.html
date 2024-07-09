@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise</title>
     <style>
-        *{
+        body {
+            text-align: center;
+        }
+        
+        * { 
+            font-family: 'arial';
+            color:#000; 
+            text-decoration: none;
             margin: 0;
             overflow: hidden;
         }
@@ -25,14 +32,12 @@
             z-index: 1;
             display: none;
         }
-        video{
-            display: none;
-        }
         img{
             width: 100vw;
             height: 100vh;
         }
         video{
+            display: none;
             position: absolute;
             top: 0;
             width: 100vw;
@@ -42,11 +47,9 @@
         h1 {
             position: absolute;
             top: 40%;
-
-            /* margin: 0 auto; */
-
             font-size: 128px;
         }
+        
     </style>
 </head>
 <body>
@@ -58,14 +61,19 @@
     </section>
 
     <section id="happyBirthday">
-        <img src="loading.gif" alt="">
-        <h1>Wait a minute</h1>
+        <img src="person.jpg" alt="">
+        <!-- <h1>Happy Birthday Bruv!</h1> -->
+        <h1>
+            <a href="" class="typewrite" data-period="2000" data-type='[ "DAMN! you an adult?", "Happy Birthday Bruv!", "hehe" ]'>
+              <span class="wrap"></span>
+            </a>
+          </h1>
     </section>
 
         <video id="jumpscare0" src="jumpscare0.mp4"></video>
         <video id="jumpscare1" src="jumpscare1.mp4"></video>
         <video id="jumpscare2" src="jumpscare2.mp4"></video>
-        <video id="jumpscare3" src="jumpscare3.mp4"></video>
+        <!-- <video id="jumpscare3" src="jumpscare3.mp4"></video>
         <video id="jumpscare4" src="jumpscare4.mp4"></video>
         <video id="jumpscare5" src="jumpscare5.mp4"></video>
         <video id="jumpscare6" src="jumpscare6.mp4"></video>
@@ -74,10 +82,67 @@
         <video id="jumpscare9" src="jumpscare9.mp4"></video>
         <video id="jumpscare10" src="jumpscare10.mp4"></video>
         <video id="jumpscare11" src="jumpscare11.mp4"></video>
-        <video id="jumpscare12" src="jumpscare12.mp4"></video>
+        <video id="jumpscare12" src="jumpscare12.mp4"></video> -->
         <audio id="song" src="songaudio.m4a"></audio>
         
     <script>
+        var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+            var that = this;
+            var delta = 200 - Math.random() * 100;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+            }
+
+            setTimeout(function() {
+            that.tick();
+            }, delta);
+        };
+
+        window.onload = function() {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i=0; i<elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+            // INJECT CSS
+            var css = document.createElement("style");
+            css.type = "text/css";
+            css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+            document.body.appendChild(css);
+        };
+        
         //Wait to load
         const loading = document.getElementById("loading");
         const button = document.getElementById("button");
@@ -100,9 +165,10 @@
                 max = Math.floor(max);
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
-            const random = getRandomInt(0, 13);
+            const random = getRandomInt(0, 3);
             //getting elements
             const video = document.getElementById(`jumpscare${random}`);
+            console.log(`jumpscare${random}`);
             
             //playing the video
             setTimeout(function() {
